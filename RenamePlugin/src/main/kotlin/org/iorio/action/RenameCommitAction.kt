@@ -3,9 +3,6 @@ package org.iorio.action
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.ui.Messages
-import com.intellij.openapi.vcs.FilePath
-import com.intellij.openapi.vcs.LocalFilePath
-import com.intellij.openapi.vcs.changes.ui.AsyncChangesTreeImpl.FilePaths
 import java.io.File
 
 class RenameCommitAction : AnAction() {
