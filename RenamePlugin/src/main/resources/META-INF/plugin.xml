@@ -25,7 +25,7 @@
     </extensions>
     <actions>
         <action id="RenamePlugin" class="org.iorio.action.RenameCommitAction" text="Rename Commit">
-            <add-to-group group-id="" anchor="first">
+            <add-to-group group-id="ToolsMenu" anchor="first">
             </add-to-group>
         </action>
     </actions>
