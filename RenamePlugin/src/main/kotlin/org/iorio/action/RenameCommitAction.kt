@@ -12,18 +12,25 @@ class RenameCommitAction : AnAction() {
     override fun actionPerformed(e: AnActionEvent) {
         val project = e.project
         val name = project?.basePath?.let { lastCommitName(it) }
+        val newName = Messages.showInputDialog("Enter new commit", "Enter the new commit name", null, name, null)
+        project?.basePath?.let { changeLastCommitName(newName!!, it) }
+    }
+
+    private fun changeLastCommitName(newName: String, path: String) {
+        val command = listOf("git", "commit", "--amend", "-m", newName)
+        executeCommand(command, File(path))
     }
 
     private fun lastCommitName(path: String): String {
-        val command = "git log -1 --pretty=format:%s"
-        return this.executeCommad(command, File(path))
+        val command = listOf("git", "log", "-1", "--pretty=format:%s")
+        return executeCommand(command, File(path))
     }
 
-    private fun executeCommad(command: String, workingDir: File): String {
-        val process = ProcessBuilder(command.split(" "))
+    private fun executeCommand(command: List<String>, workingDir: File): String {
+        val process = ProcessBuilder(command)
             .directory(workingDir)
             .redirectErrorStream(true)
             .start()
-        return process.inputStream.bufferedReader().use { it.readText() }
+        return process.inputStream.bufferedReader().use { it.readText() }.trim()
     }
 }
